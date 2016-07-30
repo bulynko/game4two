@@ -1,0 +1,50 @@
+angular.module('game4two',[
+  'angular-meteor',
+  'ui.router',
+  'ngMaterial'
+ // 'ngCordova'
+])
+
+
+
+angular.module('game4two').config(['$mdIconProvider', function ($mdIconProvider) {
+
+  $mdIconProvider
+
+    .iconSet("social", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-social.svg")
+    .iconSet("action", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-action.svg")
+    .iconSet("communication", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-communication.svg")
+    .iconSet("content", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-content.svg")
+    .iconSet("toggle", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-toggle.svg")
+    .iconSet("navigation", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-navigation.svg")
+    .iconSet("image", "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-image.svg");
+
+}]);
+
+
+function onReady() {
+  angular.bootstrap(document, ['game4two']);
+}
+
+if (Meteor.isCordova)
+  angular.element(document).on("deviceready", onReady);
+else
+  angular.element(document).ready(onReady);
+  
+
+Meteor.startup(function() {
+    Session.set("mygamexoid", localStorage.getItem("mygamexoid"));
+    Session.set("mygamexotag", localStorage.getItem("mygamexotag"));
+
+  console.log('Configuring content-security-policy');
+  BrowserPolicy.content.allowSameOriginForAll();
+  BrowserPolicy.content.allowOriginForAll('http://meteor.local');
+  BrowserPolicy.content.allowOriginForAll('https://meteor.local');
+  BrowserPolicy.content.allowOriginForAll('https://project.io');
+  BrowserPolicy.content.allowOriginForAll('https://*.project.io');
+  BrowserPolicy.content.allowOriginForAll('https://*.stripe.com');
+  BrowserPolicy.content.allowEval();
+  BrowserPolicy.framing.disallow();
+
+    
+});

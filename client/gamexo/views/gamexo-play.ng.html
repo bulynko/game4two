@@ -1,0 +1,94 @@
+
+<md-content class="md-padding">
+
+<div layout="row"  style="padding=20px; color: gray;" >
+
+<div layout="row"  style="padding=20px ; width: 45% ;background-color: {{ theplayercolor }};" >
+<h2> YOU  {{ theplayername}} </h2>
+</div> 
+
+ <span flex></span>   
+ 
+ <div layout="row"  style="padding=20px; ; width: 45%; background-color:  {{ thepeercolor }};" >
+  <h3> {{ thepeername}} </h3>
+</div> 
+
+</div> 
+ 
+
+<div layout="row"     ng-hide=" ( thegame.gameStatus == theplayer ) || (thegame.gameStatus == 100  )"
+style="padding=20px ; margins: 20px ; color: white ;background-color:  red ;" >
+   <span flex></span>  
+      <h3>  Wait for {{ thepeername }} </h3>
+       {{ gameMessage }}
+    <span flex></span>  
+</div>  
+ 
+<div layout="row"     ng-hide="  (thegame.gameStatus != theplayer) || (thegame.gameStatus == 100 ) "
+style="padding=20px ; margins: 20px ; color: white ;background-color:  green ;" >
+   <span flex></span>  
+      <h3>  GO ! and fight  .... </h3>
+       {{ gameMessage }}
+    <span flex></span>  
+</div>   
+
+
+<div layout="row"     ng-hide=" thegame.gameStatus != 100 "
+style="padding=20px ; margins: 20px; color: red;" >
+   <span flex></span>  
+   
+      <div  ng-hide=" ( thegame.playerWinner == theplayer ) || ( thegame.playerWinner == 3) " >
+        <h1> GAME LOST ! </h1>  
+      </div>
+      
+      <div  ng-hide=" ( thegame.playerWinner != theplayer )  || ( thegame.playerWinner == 3)" >
+        <h1> WINNER !!! </h1>  
+      </div>    
+      
+       <div  ng-hide=" ( thegame.playerWinner != 3)" >
+        <h1>  GAME OVER </h1>  
+      </div>    
+ 
+    <span flex></span>  
+</div>   
+
+
+ 
+ <div layout="row" >
+ <span flex></span>   
+ <div layout="column" style="padding: 10px;">
+ 
+  <div layout="row" style="padding=15px; ">
+  <div ng-repeat="i in [0, 1, 2]" >  
+      <md-button class="md-raised md-primary"  ng-click="scoreGamexoButton(i) " 
+      ng-disabled="thegame.gameState[i] != 0 " style=" {{ gamestyle[ thegame.gameState[i]   ] }} "  >A{{i}}</md-button>    
+  </div>
+  </div>
+ 
+   <div layout="row" style="padding=15px;">
+   <div ng-repeat="i in [3, 4, 5]" >  
+      <md-button class="md-raised md-primary"  ng-click="scoreGamexoButton(i) " 
+      ng-disabled="thegame.gameState[i] != 0 " style=" {{ gamestyle[ thegame.gameState[i]   ] }} "  >B{{i}}</md-button>    
+  </div>   
+  </div>
+ 
+   <div layout="row" style="padding=15px;"> 
+     <div ng-repeat="i in [6, 7, 8]" >  
+      <md-button class="md-raised md-primary"  ng-click="scoreGamexoButton(i) " 
+      ng-disabled="thegame.gameState[i] != 0 " style=" {{ gamestyle[ thegame.gameState[i]   ] }} "  > C{{i}} </md-button>    
+  </div>
+  </div> 
+
+   
+ </div>
+ <span flex></span>   
+ </div>
+     
+ </md-content >
+ 
+ 
+
+
+
+ 
+ 

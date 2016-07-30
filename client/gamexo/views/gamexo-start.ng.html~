@@ -1,0 +1,83 @@
+
+<md-content class="md-padding">
+
+<h2> your id:  {{ currentUser | displayName }} </h2>
+ 
+
+ <div layout="column" style="padding=10px;">
+ 
+    <md-input-container style="padding: 10px" >
+      <label>Your Game Name</label>
+      <input ng-model="newgame.gamePlayer1">
+    </md-input-container>
+
+    <md-input-container  layout="flex"  > 
+      <label>Select your game</label>   
+      <md-select ng-model="newgame.gameName"  > 
+          <md-option ng-repeat="g in games" value="{{ g.name }}" >  {{ g.name }} - {{ g.description }} </md-option>
+     </md-select>
+   </md-input-container> 
+    
+        
+<md-radio-group ng-model="newgame.gameType" layout="raw" >
+      <div  ng-repeat="gType in ['new-game','join-game','delete-game'] "  layout="column"  >
+      <md-radio-button  ng-value="gType"  layout="row" >      
+          {{ gType }}   
+      </md-radio-button >      
+      </div>
+ </md-radio-group>
+ 
+
+    
+</div>
+
+
+<div  ng-hide= "( newgame.gameType != 'new-game' )  &&  ( newgame.gameType != 'delete-game' ) ">    
+
+  <div layout="column" style="padding=10px;" >
+     <md-button class="md-raised md-primary " 
+       ng-click="startGameButton() " >START</md-button>      
+  </div>
+
+   <md-whiteframe ng-repeat="m in myopengames " class="md-whiteframe-z3" layout 
+   layout-align="center center"  style="margin: 5px ; padding: 3px;">  
+   
+     <div> 
+      <h3> {{ m.gameName }}   : {{ m | displayStatus}} </h3> 
+      </div>   
+ 
+     <span flex></span>  
+     <div  align="right" ng-hide= "  ( m.player2 != 'none' ) && ( m.gameStatus != 100) && (newgame.gameType != 'delete-game')" >
+       <md-button class="md-raised md-primary"  
+       ng-click="removeGameButton(m._id) " >X</md-button>    
+     </div>
+
+     <div  align="right" ng-hide= " m.player2 == 'none' " >
+       <md-button class="md-raised md-primary"  
+       ng-href="/gamexo/{{m._id}}" >Play</md-button>    
+     </div>
+
+    </md-whiteframe>   
+</div>
+ 
+<div  ng-hide= " newgame.gameType == 'new-game' " >    
+   <md-whiteframe ng-repeat="m in joinopengames " class="md-whiteframe-z3" layout 
+   layout-align="center center"  style="margin: 5px ; padding: 3px;">  
+   
+     <div> 
+      <h3> {{ m.gameName }}   : {{ m | displayJoinStatus }} </h3> 
+      </div>   
+ 
+     <span flex></span>  
+     <div  align="right"  >
+       <md-button class="md-raised md-primary"  
+       ng-click="joinGameButton(m._id)"   ng-href="/gamexo/{{m._id}}" >JOIN</md-button>    
+     </div>
+
+
+    </md-whiteframe>   
+</div> 
+ 
+ 
+</md-content> 
+     
